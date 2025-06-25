@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Web IA</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+      color: #333;
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      color: #4CAF50;
+    }
+    #output {
+      margin-top: 1rem;
+      font-size: 1.3rem;
+      color: #555;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mi Web de Inteligencia Artificial</h1>
+  <p>Haz clic en el botón y recibe una frase motivadora generada con IA.</p>
+  <button onclick="generarFrase()">Generar frase</button>
+  <div id="output"></div>
+
+  <script>
+    const frases = [
+      "Hoy es el día perfecto para empezar algo nuevo.",
+      "La constancia es el secreto del éxito.",
+      "Cada error es una lección valiosa.",
+      "Cree en ti mismo y estarás imparable.",
+      "Las grandes ideas nacen de la pasión."
+    ];
+    function generarFrase() {
+      const randomIndex = Math.floor(Math.random() * frases.length);
+      document.getElementById("output").innerText = frases[randomIndex];
+    }
+  </script>
+</body>
+</html>
