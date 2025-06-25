@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Web IA - Frases + Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+    }
+    h1 {
+      color: #4A90E2;
+    }
+    button {
+      background-color: #4A90E2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin: 5px;
+    }
+    button:hover {
+      background-color: #357ABD;
+    }
+    p, #chatOutput {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      color: #333;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Web IA: Frases + Chatbot</h1>
+    <button onclick="generarFrase()">Generar Frase</button>
+    <p id="frase">Haz clic para inspirarte 🚀</p>
+
+    <input type="text" id="userInput" placeholder="Escribe al chatbot..." />
+    <button onclick="responderChat()">Enviar</button>
+    <p id="chatOutput"></p>
+  </div>
+
+  <script>
+    const frases = [
+      "El éxito es la suma de pequeños esfuerzos repetidos día tras día.",
+      "Cree en ti y todo será posible.",
+      "La inteligencia artificial es el futuro, ¡y tú formas parte de él!",
+      "Cada línea de código te acerca más a tus sueños.",
+      "Nunca es tarde para aprender algo nuevo."
+    ];
+
+    function generarFrase() {
+      const index = Math.floor(Math.random() * frases.length);
+      document.getElementById('frase').textContent = frases[index];
+    }
+
+    function responderChat() {
+      const input = document.getElementById('userInput').value.toLowerCase();
+      let respuesta = "No entendí eso, prueba otra pregunta.";
+      if (input.includes("hola")) respuesta = "¡Hola! ¿Cómo puedo ayudarte?";
+      else if (input.includes("ia")) respuesta = "La IA es apasionante, ¿verdad?";
+      else if (input.includes("adiós")) respuesta = "¡Hasta pronto!";
+      document.getElementById('chatOutput').textContent = respuesta;
+    }
+  </script>
+</body>
+</html>
