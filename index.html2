@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IA Interactiva para Estudios y Edición de Video</title>
+<style>
+  /* Fondo degradado animado */
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%;}
+    50% { background-position: 100% 50%;}
+    100% { background-position: 0% 50%;}
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(-45deg, #6a11cb, #2575fc, #1fd1f9, #b621fe);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+  }
+
+  #app {
+    background: rgba(0,0,0,0.4);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  label, select, textarea, button {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  select, textarea {
+    border-radius: 8px;
+    border: none;
+    padding: 0.8rem;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  button {
+    background-color: #2575fc;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #1b5edb;
+  }
+
+  #response {
+    margin-top: 1rem;
+    background: rgba(255 255 255 / 0.2);
+    padding: 1rem;
+    border-radius: 10px;
+    min-height: 120px;
+    white-space: pre-wrap;
+    font-size: 1.1rem;
+    text-align: left;
+  }
+
+  footer {
+    margin-top: auto;
+    font-size: 0.9rem;
+    color: rgba(255 255 255 / 0.7);
+  }
+
+  /* Animación botón */
+  button:active {
+    transform: scale(0.98);
+  }
+</style>
+</head>
+<body>
+  <h1>✨ Asistente IA para Estudios y Edición de Video ✨</h1>
+
+  <div id="app">
+    <label for="topic">Selecciona el área:</label>
+    <select id="topic">
+      <option value="estudios">Estudios 📚</option>
+      <option value="edicion">Edición de Videos 🎬</option>
+    </select>
+
+    <label for="question">Escribe tu pregunta o petición:</label>
+    <textarea id="question" placeholder="Ejemplo: ¿Cómo mejorar la concentración?"></textarea>
+
+    <button id="sendBtn">Enviar a la IA</button>
+
+    <div id="response">Aquí aparecerá la respuesta de la IA.</div>
+  </div>
+
+  <footer>Proyecto con OpenAI GPT integrado - Tu Asistente Inteligente</footer>
+
+  <script>
+    const sendBtn = document.getElementById('sendBtn');
+    const responseDiv = document.getElementById('response');
+
+    sendBtn.addEventListener('click', async () => {
+      const topic = document.getElementById('topic').value;
+      const question = document.getElementById('question').value.trim();
+
+      if (!question) {
+        alert('Por favor, escribe una pregunta o petición.');
+        return;
+      }
+
+      responseDiv.textContent = "⏳ La IA está pensando...";
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ topic, question })
+        });
+
+        if (!res.ok) throw new Error('Error en la petición a la IA.');
+
+        const data = await res.json();
+        responseDiv.textContent = data.answer;
+      } catch (error) {
+        responseDiv.textContent = "❌ Error al obtener respuesta. Intenta más tarde.";
+        console.error(error);
+      }
+    });
+  </script>
+</body>
+</html>
